@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="flugel-datos">
+<head>
+	<meta charset="UTF-8">
+	<title>-Flugel-</title>
+	<link rel="stylesheet" type="text/css" href="librerias/dist/css/bootstrap.css">
+	<script type="text/javascript" src="js/angular.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/PapaParse/papaparse.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body>
+	<div class="container-fuid">
+		<div class="row">
+			<header>
+				<nav class="navbar navbar-default">
+					<div class="col-md-12">
+						<h2>MODULO PARA CONSOLIDACIÒN DE BASE DE DATOs.</h2>
+					</div>
+				</nav>
+			</header>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<reviewtable-db></reviewtable-db>
+				<div ng-controller="DatosController">
+					<ul><li ng-repeat="alumno in alumnos">
+						<p>{{alumno.nombre}}</p>
+						<p>{{alumno.apellido}}</p>
+						<p>{{alumno.edad}}</p>
+					   </li>
+				   </ul>
+				</div>			
+			</div>
+			<div class="col-md-3">
+				<div class="row">
+					<div class="input-group">
+						<label for="" class="input-group">Importar Base de Datos </label>
+						<input type="file" input-db="monda">
+					</div>
+					<div class="input-group" ng-controller="inputpruebaController">
+						<label for="" class="input-group">Importar Base de Datos 1.o</label>
+						<input type="file" id="prueba">
+					</div>
+
+					<!--<form-newstudent></form-newstudent> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	
+
+
+
+
+	
+</body>
+</html>
