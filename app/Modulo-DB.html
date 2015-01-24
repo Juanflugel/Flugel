@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="Modulo-DB">
+<html lang="es" ng-app="Modulo-DB">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="ISO-8859-1">
 	<title>Consolidacion de Base de Datos</title>
 	<link rel="stylesheet" type="text/css" href="librerias/dist/css/bootstrap.css">
 	<script type="text/javascript" src="js/angular.js"></script>
@@ -13,23 +13,25 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<nav class="navbar navbar-default"></nav>
+			<nav class="navbar navbar-default"> socio</nav>
 		</div>
-		<div class="row">
+		<div class="row" ng-controller="inputDbController">
 			<div class="col-md-9">
-				<div class="row" ng-controller="table1">
+				<div class="row">
+
 					<div class="col-md-12">
 						<ls-table><ls-table>
 					</div>
+					{{personas}}
 				</div>
 				
 			</div>
 			<div class="col-md-3">
-				<div class="input-group"ng-controller="inputDbController">
-						<label for="" class="input-group">Importar Base de Datos </label>
-						<input type="file"  id="archivo-csv">
-						
-					</div>
+				<div class="input-group">
+					<label for="" class="input-group">Importar Base de Datos </label>
+					<input type="file"  id="archivo-csv">
+					
+				</div>
 			</div>
 		</div>
 	</div>

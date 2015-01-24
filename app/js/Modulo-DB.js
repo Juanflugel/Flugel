@@ -1,59 +1,71 @@
 var app=angular.module('Modulo-DB',[]);
 
-var personas= JSON.parse(localStorage.getItem('personas'))  || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
-// Controllador del Input-funciòn parse Datos
-app.controller('inputDbController',['$scope', function($scope){
-	$scope.archivo=$('#archivo-csv');
-  $scope.archivo.on('click',function(){
-    localStorage.clear();
+var unComplete=[];
+var fertig=[];
+
+  // Controllador del Input-funciòn parse Datos
+  app.controller('inputDbController',['$scope', function($scope){
+
+    $scope.personas= JSON.parse(localStorage.getItem('personas'))  || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
+    $scope.archivo=$('#archivo-csv');
+    $scope.tabla = {
+        header:[],
+        tableClass: "table-striped table-hover table-responsive panel",
+        datos: []
+    };
+    $scope.archivo.on('click',function(){
+      localStorage.clear();
+    });
+
+    $scope.archivo.on('change',function(){
+      $scope.archivo.parse({
+         config: {
+            header:true,
+            complete: function(results, file) {
+               $scope.personas=results.data;
+               for(var i=0;i<$scope.personas.length;i++){
+                if(_.contains($scope.personas[i],"")){
+                  unComplete.push($scope.personas[i]);
+              }
+
+          };
+              localStorage.setItem('personas',JSON.stringify($scope.personas));
+              console.log(unComplete);
+              $scope.tabla.datos=$scope.personas;
+              $scope.$apply();
+            }
+        }      
+    });
   });
-	$scope.archivo.on('change',function(){
-		$scope.archivo.parse({
-			config: {
-				header:true,
-				complete: function(results, file) {
-					console.log("This file done:", file, results.data);
-          personas=results.data;
-          localStorage.setItem('personas',JSON.stringify(personas));
-          location.reload();
+ 
+   
 
-				}
-			}      
-		});
-	});
 }]);
 
-// Controlador tabla
-app.controller('table1', ['$scope', function($scope){
-	$scope.tabla = {
-		header: personas[0],
-		tableClass: "table-striped table-hover table-responsive panel",
-		datos: personas
-	};
-}]);
+     
 
-// Directiva Tabla 
-app.directive('lsTable', function(){
+      // Directiva Tabla 
+      app.directive('lsTable', function(){
 
-    function link(scope, element, attrs){
+        function link(scope, element, attrs){
 
-// experimento
-scope.tableHeader=function(obj){
- return _.keys(obj);
-        console.log(_.keys(obj));
-};
+      // experimento
+      scope.tableHeader=function(obj){
+       return _.keys(obj);
+       console.log(_.keys(obj));
+     };
 
-// experimento
+      // experimento
 
       scope.ObjtoArray = function(array){
         return _.map(array, function(obj){
-          //console.log(obj);
-         //console.log(_.toArray(obj));
-          return _.toArray(obj);
-        });
+                //console.log(obj);
+               //console.log(_.toArray(obj));
+               return _.toArray(obj);
+             });
         return _.keys(obj);
         console.log(_.keys(obj));
-    
+
       };
 
       scope.predicate = '0';
@@ -65,12 +77,13 @@ scope.tableHeader=function(obj){
           scope.reverse = false;
           scope.predicate = val.toString();
         }
-        
+
       };
+
       scope.tabla.header = scope.tableHeader(scope.tabla.header);
       scope.tabla.datos = scope.ObjtoArray(scope.tabla.datos);
       scope.limite = scope.tabla.datos.length;
-      
+
     };
     return{
       restrict: 'E',      
