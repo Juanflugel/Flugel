@@ -9,12 +9,13 @@ var fertig=[];
     $scope.personas= JSON.parse(localStorage.getItem('personas'))  || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
     $scope.archivo=$('#archivo-csv');
     $scope.tabla = {
-        header:[],
+        header:$scope.personas[0],
         tableClass: "table-striped table-hover table-responsive panel",
-        datos: []
+        datos:$scope.personas
     };
     $scope.archivo.on('click',function(){
       localStorage.clear();
+      $scope.$apply();
     });
 
     $scope.archivo.on('change',function(){
@@ -31,7 +32,11 @@ var fertig=[];
           };
               localStorage.setItem('personas',JSON.stringify($scope.personas));
               console.log(unComplete);
+
+              
               $scope.tabla.datos=$scope.personas;
+              // $scope.tabla.header=$scope.personas[0];
+              
               $scope.$apply();
             }
         }      
@@ -63,8 +68,8 @@ var fertig=[];
                //console.log(_.toArray(obj));
                return _.toArray(obj);
              });
-        return _.keys(obj);
-        console.log(_.keys(obj));
+        // return _.keys(obj);
+        // console.log(_.keys(obj));
 
       };
 
@@ -83,6 +88,7 @@ var fertig=[];
       scope.tabla.header = scope.tableHeader(scope.tabla.header);
       scope.tabla.datos = scope.ObjtoArray(scope.tabla.datos);
       scope.limite = scope.tabla.datos.length;
+
 
     };
     return{
