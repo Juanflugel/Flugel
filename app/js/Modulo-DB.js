@@ -1,21 +1,19 @@
 var app=angular.module('Modulo-DB',[]);
 
 var unComplete=[];
-var fertig=[];
-
+//
   // Controllador del Input-funciòn parse Datos
-  app.controller('inputDbController',['$scope', function($scope){
+app.controller('inputDbController',['$scope', function($scope){
 
-    $scope.personas= JSON.parse(localStorage.getItem('personas'))  || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
+    $scope.personas= JSON.parse(localStorage.getItem('personas')) || [{Bienvenido:'Por favor Cargue su archivo CSV'}] ;
+    $scope.unComplete=[];
     $scope.archivo=$('#archivo-csv');
     $scope.tabla = {
-        header:$scope.personas[0],
-        tableClass: "table-striped table-hover table-responsive panel",
-        datos:$scope.personas
+        datos:$scope.personas,
+        header:$scope.personas[0]
     };
     $scope.archivo.on('click',function(){
       localStorage.clear();
-      $scope.$apply();
     });
 
     $scope.archivo.on('change',function(){
@@ -24,76 +22,67 @@ var fertig=[];
             header:true,
             complete: function(results, file) {
                $scope.personas=results.data;
-               for(var i=0;i<$scope.personas.length;i++){
-                if(_.contains($scope.personas[i],"")){
-                  unComplete.push($scope.personas[i]);
-              }
+                for(var i=0;i<$scope.personas.length;i++){
+                  if(_.contains($scope.personas[i],"")){
+                    unComplete.push($scope.personas[i]);
+                  }
 
-          };
+                };
+
               localStorage.setItem('personas',JSON.stringify($scope.personas));
               console.log(unComplete);
-
+              // se llaman a las dos funciones de la directiva ls-Table antes del apply para que procesen los datos.
+              // porque esas funciones se ejecutan al momento de cargas la directiva.
+              $scope.tabla.datos = $scope.ObjtoArray($scope.personas);
+              $scope.tabla.header = $scope.TablaHeader($scope.personas[0]);
+              $scope.$apply();   
               
-              $scope.tabla.datos=$scope.personas;
-              // $scope.tabla.header=$scope.personas[0];
-              
-              $scope.$apply();
             }
         }      
-    });
-  });
- 
-   
-
+      });
+   });  
 }]);
 
-     
 
-      // Directiva Tabla 
-      app.directive('lsTable', function(){
+// Directiva Tabla lsTable
+app.directive('lsTable', function(){
 
-        function link(scope, element, attrs){
+   function link(scope, element, attrs){
 
-      // experimento
-      scope.tableHeader=function(obj){
-       return _.keys(obj);
-       console.log(_.keys(obj));
-     };
+        scope.ObjtoArray = function(array){
 
-      // experimento
+         return _.map(array, function(obj){
+                        //console.log(obj);
+                        //console.log(_.toArray(obj));
+                        return _.toArray(obj);
+                     });
+        };
 
-      scope.ObjtoArray = function(array){
-        return _.map(array, function(obj){
-                //console.log(obj);
-               //console.log(_.toArray(obj));
-               return _.toArray(obj);
-             });
-        // return _.keys(obj);
-        // console.log(_.keys(obj));
+        scope.TablaHeader = function(obj){
+            console.log(_.keys(obj));
+            return _.keys(obj);
+         };
 
-      };
+        scope.predicate = '0';
+        scope.reverse = false;
 
-      scope.predicate = '0';
-      scope.reverse = false;
-      scope.tableOrder = function(val){
-        if (scope.predicate == val.toString()) {
-          scope.reverse = !scope.reverse;
-        }else{
-          scope.reverse = false;
-          scope.predicate = val.toString();
-        }
+        scope.tableOrder = function(val){
+           if (scope.predicate == val.toString()) {
+            scope.reverse = !scope.reverse;
+         }else{
+            scope.reverse = false;
+            scope.predicate = val.toString();
+         }
+        };
 
-      };
-
-      scope.tabla.header = scope.tableHeader(scope.tabla.header);
-      scope.tabla.datos = scope.ObjtoArray(scope.tabla.datos);
-      scope.limite = scope.tabla.datos.length;
-
-
-    };
-    return{
+        scope.tabla.datos = scope.ObjtoArray(scope.tabla.datos);
+        scope.tabla.header= scope.TablaHeader(scope.tabla.header);
+      // scope.limite = scope.tabla.datos.length;
+   };
+   
+   return{
       restrict: 'E',      
       templateUrl: "/flugel/app/html/tabla.html",
       link: link
-    };  
-  });
+   };  
+});
