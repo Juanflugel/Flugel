@@ -1,36 +1,43 @@
 var app=angular.module('Modulo-DB',[]);
 
-var unComplete=[];
-//
   // Controllador del Input-funciòn parse Datos
-app.controller('inputDbController',['$scope', function($scope){
+  app.controller('inputDbController',['$scope', function($scope){
 
+    $scope.limpiar=function(){
+      localStorage.clear();
+    };
+    
     $scope.personas= JSON.parse(localStorage.getItem('personas')) || [{Bienvenido:'Por favor Cargue su archivo CSV'}] ;
     $scope.unComplete=[];
+    $scope.detalles=[];
     $scope.archivo=$('#archivo-csv');
     $scope.tabla = {
-        datos:$scope.personas,
-        header:$scope.personas[0]
+      datos:$scope.personas,
+      header:$scope.personas[0]
     };
-    $scope.archivo.on('click',function(){
-      localStorage.clear();
-    });
+
+    $scope.archivo.on('click',$scope.limpiar()); 
 
     $scope.archivo.on('change',function(){
       $scope.archivo.parse({
-         config: {
-            header:true,
-            complete: function(results, file) {
-               $scope.personas=results.data;
-                for(var i=0;i<$scope.personas.length;i++){
-                  if(_.contains($scope.personas[i],"")){
-                    unComplete.push($scope.personas[i]);
-                  }
+       config: {
+        worker:true,
+        header:true,
+        complete: function(results, file) {
+         $scope.personas=results.data;
+         console.log($scope.personas);
+               //console.log(file,$scope.personas.length);
+               $scope.detalles=file;
+               for(var i=0;i<$scope.personas.length;i++){
 
-                };
+                if(_.contains($scope.personas[i],"")){
+                  $scope.unComplete.push($scope.personas[i]);
+                }
+
+              };
 
               localStorage.setItem('personas',JSON.stringify($scope.personas));
-              console.log(unComplete);
+              console.log($scope.unComplete);
               // se llaman a las dos funciones de la directiva ls-Table antes del apply para que procesen los datos.
               // porque esas funciones se ejecutan al momento de cargas la directiva.
               $scope.tabla.datos = $scope.ObjtoArray($scope.personas);
@@ -38,9 +45,9 @@ app.controller('inputDbController',['$scope', function($scope){
               $scope.$apply();   
               
             }
-        }      
-      });
-   });  
+          }      
+        });
+});  
 }]);
 
 
@@ -50,7 +57,6 @@ app.directive('lsTable', function(){
    function link(scope, element, attrs){
 
         scope.ObjtoArray = function(array){
-
          return _.map(array, function(obj){
                         //console.log(obj);
                         //console.log(_.toArray(obj));
@@ -59,7 +65,7 @@ app.directive('lsTable', function(){
         };
 
         scope.TablaHeader = function(obj){
-            console.log(_.keys(obj));
+            //console.log(_.keys(obj));
             return _.keys(obj);
          };
 
