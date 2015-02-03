@@ -1,7 +1,8 @@
 angular.module('eje',[
   'ui.router',
   'ejeController',
-  'ejeDirect'])
+  'ejeDirect'
+])
 
 .config(function($stateProvider, $urlRouterProvider) {
   // For any unmatched url, redirect to /state1
@@ -30,3 +31,4 @@ angular.module('eje',[
       }
     });
 });
+

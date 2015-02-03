@@ -10,49 +10,22 @@
     <script type="text/javascript" src="js/angular-ui-router.js"></script>
 	<script type="text/javascript" src="librerias/dist/js/underscore.js"></script>
 	<script type="text/javascript" src="js/PapaParse/papaparse.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>	
+	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/Controllers/contro.js"></script>
+	<script type="text/javascript" src="js/Services/servicios.js"></script>	
 	<script type="text/javascript" src="js/Directives/direct.js"></script>
 	
 		
 </head>
 <body>
-
-	<nav class="navbar navbar-default navbar-static-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a href="" class="navbar-brand">Flugel</a>
-			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">
-					Toggle Navigation
-				</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			</div>
-			<ul class="nav navbar-nav navbar-right collapse navbar-collapse">
-				<li><a ui-sref="Inicio">Principal</a></li>
-				<li><a ui-sref="tabla">Informacion</a></li>
-				<li><a href="" data-toggle="dropdown">Contactos <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="">Gerente</a></li>
-						<li><a href="">Facebook</a></li>
-						<li><a href="">Tweeter</a></li>
-					</ul>
-				</li>
-				<li><a href="">Configuracion</a></li>
-			</ul>
-		</div>
-	</nav>
-
+	<nav-main></nav-main>
 	<div class="container-fluid" ng-controller="DatosController">
 		<div class="row">
 			<div class="col-md-9">
 				<ol class="breadcrumb">
-							<li><a href="" ng-click="limpiarLS()"><span class="glyphicon glyphicon-trash"></span> Limpiar Tabla </a></li>
-							<li><a href=""><span class="glyphicon glyphicon-ok"></span> Datos completos</a></li>
-							<li class="active"><a href=""><span class="glyphicon glyphicon-pencil"></span> Datos incompletos</a></li>
+							<li><a href="" ng-click="pru()"><span class="glyphicon glyphicon-trash"></span> Limpiar Tabla </a></li>
+							<li><a ui-sref="Inicio"><span class="glyphicon glyphicon-ok"></span> Datos completos</a></li>
+							<li class="active"><a ui-sref="tabla"><span class="glyphicon glyphicon-pencil"></span> Datos incompletos</a></li>
 						</ol>
 				<div class="row">
 					<div class="col-md-12">

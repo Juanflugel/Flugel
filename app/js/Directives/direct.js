@@ -82,4 +82,13 @@ angular.module('ejeDirect',[
       templateUrl: "/flugel/app/html/tabla1.html",
       link: link
    };  
+})
+
+.directive('navMain', function(){
+
+  return{
+    restrict: 'E',      
+      templateUrl: "/flugel/app/html/navegacion.html",
+      
+  };
 });
