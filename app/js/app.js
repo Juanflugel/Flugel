@@ -12,12 +12,12 @@ angular.module('eje',[
     .state('Inicio', {
       url: "/Inicio",
       templateUrl: "/flugel/app/html/nuevo.html",
-      controller:'DatosController'
+      controller:'tablaCompController'
     })
     .state('tabla', {
       url: "/vacios",
       templateUrl: "/flugel/app/html/vacios.html",
-      controller:'DatosController'
+      controller:'tablaVaciosController'
     })
     .state('state2', {
       url: "/state2",

@@ -1,6 +1,4 @@
-angular.module('ejeDirect',[
-
-  ])
+angular.module('ejeDirect',[])
 
 .directive('lsTable', function(){
 
@@ -34,13 +32,14 @@ angular.module('ejeDirect',[
         scope.tabla.datos = scope.ObjtoArray(scope.tabla.datos);
         scope.tabla.header= scope.TablaHeader(scope.tabla.header);
       // scope.limite = scope.tabla.datos.length;
-   };
+   }; 
    
-   return{
-      restrict: 'E',      
+   return {
+      restrict: 'E',
       templateUrl: "/flugel/app/html/tabla.html",
       link: link
-   };  
+    
+}
 })
 
 .directive('tableVacios', function(){

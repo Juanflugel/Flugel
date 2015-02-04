@@ -19,13 +19,12 @@
 </head>
 <body>
 	<nav-main></nav-main>
-	<div class="container-fluid" ng-controller="DatosController">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-9">
 				<ol class="breadcrumb">
-							<li><a href="" ng-click="pru()"><span class="glyphicon glyphicon-trash"></span> Limpiar Tabla </a></li>
-							<li><a ui-sref="Inicio"><span class="glyphicon glyphicon-ok"></span> Datos completos</a></li>
-							<li class="active"><a ui-sref="tabla"><span class="glyphicon glyphicon-pencil"></span> Datos incompletos</a></li>
+					<li><a ui-sref="Inicio">Datos completos</a></li>
+					<li class="active"><a ui-sref="tabla"> Datos incompletos</a></li>
 						</ol>
 				<div class="row">
 					<div class="col-md-12">
@@ -34,7 +33,7 @@
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="input-group">
+				<div class="input-group" ng-controller="inputDatosController">
 					<label for="" class="input-group">Importar Base de Datos </label>
 					<input type="file"  id="archivo-csv">
 				</div>
