@@ -6,7 +6,7 @@ angular.module('eje',[
 
 .config(function($stateProvider, $urlRouterProvider) {
   // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/Inicio");
+  $urlRouterProvider.otherwise("/state1");
   // Now set up the states
   $stateProvider
     .state('Inicio', {

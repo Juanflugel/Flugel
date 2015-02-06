@@ -1,19 +1,9 @@
 angular.module('ejeController',['ejeServi'])
 
-.controller('inputDatosController',['$scope','loStorage','alerta', function ($scope,loStorage,alerta) {
-
-	$scope.personas=[];
-	$scope.unComplete=[];
-
-	$scope.$watch('personas', function(){
-		alerta.updateTodos($scope.personas);
-	});
-	$scope.$watch('unComplete', function(){
-		alerta.updateVacios($scope.unComplete);
-	});
+.controller('inputDatosController',['$scope','loStorage',function ($scope,loStorage) {
 
 	$scope.archivo = $('#archivo-csv');
-	$scope.archivo.on('click', function (){
+	$scope.archivo.on('click',function (){
 		loStorage.limpiarLS();
 	}); 
 
@@ -30,52 +20,42 @@ angular.module('ejeController',['ejeServi'])
 							u.push(p[i]);
 						}
 					};
-					$scope.personas = p;
-					$scope.unComplete = u;
 					loStorage.guardarLS('personas',p);
 					loStorage.guardarLS('vacios',u);
-					$scope.$apply(); 
 				}
 			}      
 		});
 	}); 
 
 }])
-.controller('tablaCompController',['$scope','loStorage','alerta', function ($scope,loStorage,alerta) {
+.controller('tablaCompController',['$scope','loStorage', function ($scope,loStorage){
 
-	$scope.personas =loStorage.llamarLS('personas') || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
+	$scope.personas = loStorage.llamarLS('personas') || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
 	$scope.tabla = {
 		datos:$scope.personas,
 		header:$scope.personas[0]
 	};
-
-	$scope.$on("valuesUpdated", function(){
-		$scope.personas = alerta.todos;
-		$scope.tabla.datos = $scope.ObjtoArray($scope.personas); 
-		$scope.tabla.header = $scope.TablaHeader($scope.personas[0]);
-	});
+	
 
 }])
-.controller('tablaVaciosController',['$scope','loStorage','alerta', function ($scope,loStorage,alerta) {
+.controller('tablaVaciosController',['$scope','loStorage', function ($scope,loStorage){
 
-	$scope.unComplete = loStorage.llamarLS('vacios') || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
-	$scope.tablavacios = {
-		datos:$scope.unComplete,
-		header:$scope.unComplete[0]
+	$scope.personas = loStorage.llamarLS('vacios') || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
+	$scope.tabla = {
+		datos:$scope.personas,
+		header:$scope.personas[0]
+	
 	};
 
-	$scope.$on("valuesUpdated",function(){
-		$scope.unComplete = alerta.vacios;
-		$scope.tablavacios.datos = $scope.ObjtoArray($scope.unComplete);
-		$scope.tablavacios.header = $scope.TablaHeader($scope.unComplete[0]);
-	});
-}]);
 
-// $scope.personas = loStorage.llamarLS('vacios') || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
-	// $scope.tabla = {
-	// 	datos:$scope.personas,
-	// 	header:$scope.personas[0]
+	// $scope.unComplete = loStorage.llamarLS('vacios') || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
+	// $scope.tablavacios = {
+	// 	datos:$scope.unComplete,
+	// 	header:$scope.unComplete[0]
 	// };
+
+
+}]);
 
 //console.log($scope.unComplete);
               // se llaman a las dos funciones de la directiva ls-Table antes del apply para que procesen los datos.
@@ -85,4 +65,3 @@ angular.module('ejeController',['ejeServi'])
 		              // $scope.tablavacios.datos = $scope.ObjtoArray($scope.unComplete);
 		              // $scope.tablavacios.header = $scope.TablaHeader($scope.unComplete[1]);
 		              // $scope.$apply(); 
-

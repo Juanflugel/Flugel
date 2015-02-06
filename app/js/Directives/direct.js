@@ -30,7 +30,7 @@ angular.module('ejeDirect',[])
         };
 
         scope.tabla.datos = scope.ObjtoArray(scope.tabla.datos);
-        scope.tabla.header = scope.TablaHeader(scope.tabla.header);
+        scope.tabla.header= scope.TablaHeader(scope.tabla.header);
       // scope.limite = scope.tabla.datos.length;
    }; 
    
@@ -72,7 +72,7 @@ angular.module('ejeDirect',[])
         };
 
         scope.tablavacios.datos = scope.ObjtoArray(scope.tablavacios.datos);
-        scope.tablavacios.header = scope.TablaHeader(scope.tablavacios.header);
+        scope.tablavacios.header= scope.TablaHeader(scope.tablavacios.header);
       // scope.limite = scope.tabla.datos.length;
    };
    
