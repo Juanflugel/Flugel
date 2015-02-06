@@ -34,7 +34,7 @@ angular.module('ejeDirect',[])
       // scope.limite = scope.tabla.datos.length;
    }; 
    
-   return {
+      return {
       restrict: 'E',
       templateUrl: "/flugel/app/html/tabla.html",
       link: link

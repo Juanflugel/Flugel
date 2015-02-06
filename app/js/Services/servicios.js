@@ -16,4 +16,23 @@ angular.module('ejeServi',[])
 	};
     
 	return store;
+})
+.factory('alerta', function($rootScope){
+	var coleccion ={};
+
+		coleccion.todos = [];
+		coleccion.vacios = [];
+
+		coleccion.updateTodos = function (col) {
+			this.todos = col;
+			$rootScope.$broadcast("valuesUpdated");
+		}
+
+		coleccion.updateVacios = function (vcol) {
+			this.vacios = vcol;
+			$rootScope.$broadcast("valuesUpdated");
+		}
+
+		return coleccion;
+
 });
