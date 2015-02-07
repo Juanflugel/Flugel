@@ -60,15 +60,15 @@ angular.module('ejeController',['ejeServi'])
 .controller('tablaVaciosController',['$scope','loStorage','alerta', function ($scope,loStorage,alerta) {
 
 	$scope.unComplete = loStorage.llamarLS('vacios') || [{Bienvenido:'Por favor Cargue su archivo CSV'}];
-	$scope.tablavacios = {
+	$scope.tabla = {
 		datos:$scope.unComplete,
 		header:$scope.unComplete[0]
  	};
  
 	$scope.$on("valuesUpdated",function(){
 		$scope.unComplete = alerta.vacios;
-		$scope.tablavacios.datos = $scope.ObjtoArray($scope.unComplete);
-		$scope.tablavacios.header = $scope.TablaHeader($scope.unComplete[0]);
+		$scope.tabla.datos = $scope.ObjtoArray($scope.unComplete);
+		$scope.tabla.header = $scope.TablaHeader($scope.unComplete[0]);
 	});
 }]);
 
