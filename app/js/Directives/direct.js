@@ -39,7 +39,7 @@ angular.module('ejeDirect',[])
       templateUrl: "/flugel/app/html/tabla.html",
       link: link
     
-}
+};
 })
 .directive('navMain', function(){
 
@@ -48,4 +48,18 @@ angular.module('ejeDirect',[])
       templateUrl: "/flugel/app/html/navegacion.html",
       
   };
+})
+.directive('iForm', function(){
+
+return{
+  restrict:'E',
+  templateUrl:'html/iform.html'
+};
+
+})
+.directive('vForm',function(){
+  return{
+  restrict:'E',
+  templateUrl:'html/vform.html'
+};
 });
